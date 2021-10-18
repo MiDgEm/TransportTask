@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace TransportTask
 {
@@ -9,22 +10,25 @@ namespace TransportTask
     {
         public string ReceivePath(string nameFile)
         {
-            return $@"C:\Users\Neste\RiderProjects\TransportTask\TransportTask\{nameFile}";
+            return $@"..\..\{nameFile}";
         }
         
-        public List<List<int>> ReceiveStocksOrConsumers(string path)
+        public int[] ReceiveStocksOrConsumers(string path, string rowName)
         {
             string[] lines = File.ReadAllLines(path);
-            List<List<int>> stocksOrConsumersFromFile = new List<List<int>>();
-            
+            string pattern = $@"{rowName}:\s";
+            int[] row = {};
+
             foreach (var line in lines)
             {
-                string[] _string = line.Split(' ');
-                int[] numbers = Array.ConvertAll(_string, int.Parse);
-                stocksOrConsumersFromFile.Add(numbers.ToList());
+                if (Regex.IsMatch(line, pattern))
+                {
+                    row = Array.ConvertAll(Regex.Replace(line, pattern,String.Empty).Split(' '), int.Parse);
+                    break;
+                }
             }
-            
-            return stocksOrConsumersFromFile;
+
+            return row;
         }
 
         public List<List<int>> ReceiveMartixTariff(string path)

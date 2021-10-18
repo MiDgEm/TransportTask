@@ -11,8 +11,8 @@ namespace TransportTask
             try
             {
                 FilePath filePath = new FilePath();
-                int[] stocks = filePath.ReceiveStocksOrConsumers(filePath.ReceivePath("StocksOrConsumers.txt"))[0].ToArray();
-                int[] consumers = filePath.ReceiveStocksOrConsumers(filePath.ReceivePath("StocksOrConsumers.txt"))[1].ToArray();
+                int[] stocks = filePath.ReceiveStocksOrConsumers(filePath.ReceivePath("StocksOrConsumers.txt"), "stocks");
+                int[] consumers = filePath.ReceiveStocksOrConsumers(filePath.ReceivePath("StocksOrConsumers.txt"), "consumers");
                 List<List<int>> matrix = filePath.ReceiveMartixTariff(filePath.ReceivePath("MatrixTariff.txt"));
 
                 NorthwestCorner northwestCorner = new NorthwestCorner();
